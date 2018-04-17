@@ -1,0 +1,6 @@
+#ifndef CLOCKSYSTEM_CLOCKSYSTEM_H_
+#define CLOCKSYSTEM_CLOCKSYSTEM_H_
+
+void Setup_Clocks(void);
+
+#endif /* CLOCKSYSTEM_CLOCKSYSTEM_H_ */
