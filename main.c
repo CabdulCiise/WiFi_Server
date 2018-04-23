@@ -31,6 +31,7 @@ void main(void)
             SendWebPage();
             networkRequest = 0;
         }
+        MAP_PCM_gotoLPM0();
     }
 }
 
@@ -46,13 +47,15 @@ void Init_System(void)
 
     Termianl_Init();                // UART setup for terminal
     ESP8266_Init();                 // setup for ESP8266 module and internet access
+
+    MAP_PCM_gotoLPM0();             // got to sleep
 }
 
 /* Turn all MSP432 LEDs off */
 void LED_Init(void)
 {
     MAP_GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
-    MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
+    MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P1, GPIO_PIN0);
 
     MAP_GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN0|GPIO_PIN1|GPIO_PIN2);
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0|GPIO_PIN1|GPIO_PIN2);

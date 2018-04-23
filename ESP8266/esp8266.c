@@ -80,14 +80,14 @@ void SendWebPage()
 
     sprintf(buffer, "AT+CIPSEND=%d,%d", channel, strlen(strHTML));
     ESP8266_SendCommand(buffer);
-    __delay_cycles(10000);
+    __delay_cycles(1000);
 
     ESP8266_SendCommand(strHTML);
-    __delay_cycles(1000000);
+    __delay_cycles(100000);
 
     sprintf(buffer, "AT+CIPCLOSE=%d", channel);
     ESP8266_SendCommand(buffer);
-    __delay_cycles(1000000);
+    __delay_cycles(1000);
 
     // clear buffer
     RX_Count = 0;
@@ -137,16 +137,20 @@ void FormatHTML(void)
                 <form action="" method=\"get\">\
                 <div><span>\
                     <fieldset>\
-                        Temperature: %.1f&deg F<br>\
-                        Humidity: %.1f%%<br>\
-                        Pressure: %.1f inHg<br>\
+                        Temperature: %0.1f&deg F<br>\
+                        Humidity: %0.1f%%<br>\
+                        Pressure: %0.1f inHg<br>\
                     </fieldset>\
                 <span></div>\
                 </form>\
             </body>\
         </html> \r\n\0");
 
-    sprintf(strHTML, strHTML, BME280_GetTemperature(), BME280_GetHumidity(), BME280_GetPressure());
+    float temp = BME280_GetTemperature();
+    float humidity = BME280_GetHumidity();
+    float pressure = BME280_GetPressure();
+
+    sprintf(strHTML, strHTML, temp, humidity, pressure);
 }
 
 uint8_t ESP8266_SendCommand(char* command)
